@@ -13,7 +13,7 @@ FROM base AS build
 
 RUN mkdir -p /pnpm && chown -R node:node /app /pnpm
 
-COPY --chown=node:node pnpm-lock.yaml package.json .
+COPY --chown=node:node pnpm-lock.yaml pnpm-workspace.yaml package.json ./
 
 USER node
 
