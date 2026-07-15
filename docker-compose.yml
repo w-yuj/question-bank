@@ -24,7 +24,7 @@ services:
     volumes:
       - ./chromadb_data:/data
     ports:
-      - "8001:8000"
+      - "18001:8000"
 
   backend:
     build:
@@ -40,7 +40,7 @@ services:
       CHROMADB_PORT: ${CHROMADB_PORT:-8000}
       LOG_LEVEL: ${LOG_LEVEL:-INFO}
     ports:
-      - "8000:8000"
+      - "18000:8000"
     volumes:
       - ./backend/uploads:/app/uploads
       - ./backend/static:/app/static
@@ -79,7 +79,7 @@ services:
     environment:
       API_BASE_URL: http://backend:8000
     ports:
-      - "80:80"
+      - "18080:80"
     depends_on:
       - backend
 
