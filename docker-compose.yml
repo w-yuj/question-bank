@@ -26,6 +26,22 @@ services:
     ports:
       - "18001:8000"
 
+  storage-init:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      target: pro
+    user: "0:0"
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        mkdir -p /app/uploads /app/static/media
+        chown -R "${UID:-1000}:${GID:-1000}" /app/uploads /app/static
+    volumes:
+      - ./backend/uploads:/app/uploads
+      - ./backend/static:/app/static
+    restart: "no"
+
   backend:
     build:
       context: ./backend
@@ -45,6 +61,8 @@ services:
       - ./backend/uploads:/app/uploads
       - ./backend/static:/app/static
     depends_on:
+      storage-init:
+        condition: service_completed_successfully
       mysql:
         condition: service_healthy
       chromadb:
