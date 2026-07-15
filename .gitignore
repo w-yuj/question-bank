@@ -20,3 +20,4 @@ backend/static/media/
 # OS / logs
 *.log
 logs/
+.pnpm-store/

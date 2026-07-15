@@ -43,6 +43,7 @@ export const useAuth = () => {
       })
       
       token.value = data.access_token
+      refreshCookie('token')
       await fetchUser()
       return true
     } catch (error) {
